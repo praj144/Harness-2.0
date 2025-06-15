@@ -9,7 +9,10 @@ pipeline:
       codebase:
         connectorRef: git_new
         repoName: harness-nodejs
-        build: <+input>
+        build:
+          type: branch
+          spec:
+            branch: feature
   stages:
     - stage:
         name: CI-build
