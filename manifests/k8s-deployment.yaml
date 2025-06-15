@@ -1,0 +1,25 @@
+service:
+  name: nodejs-service
+  identifier: nodejsservice
+  serviceDefinition:
+    type: Kubernetes
+    spec:
+      manifests:
+        - manifest:
+            identifier: k8sdeploymentyaml
+            type: K8sManifest
+            spec:
+              store:
+                type: Github
+                spec:
+                  connectorRef: git_new
+                  gitFetchType: Branch
+                  paths:
+                    - k8s-deployment.yaml
+                  repoName: Harness-2.0
+                  branch: feature
+              skipResourceVersioning: false
+              enableDeclarativeRollback: false
+  gitOpsEnabled: false
+  orgIdentifier: default
+  projectIdentifier: nodejspipeline
