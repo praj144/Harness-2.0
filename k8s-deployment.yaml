@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: harness-nodejs
-          image: prajwaltelkar14/Harness-new-2.0:Latest  # replaced during CD pipeline
+          image: prajwaltelkar14/harness-new-2-0:latest  # replaced during CD pipeline
           ports:
             - containerPort: 3000
 ---
