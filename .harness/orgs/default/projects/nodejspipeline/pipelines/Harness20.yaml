@@ -8,7 +8,7 @@ pipeline:
     ci:
       codebase:
         connectorRef: git_new
-        repoName: harness-nodejs
+        repoName: harness-2.0
         build:
           type: branch
           spec:
