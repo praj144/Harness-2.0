@@ -1,0 +1,48 @@
+pipeline:
+  name: Harness-2.0
+  identifier: Harness20
+  projectIdentifier: nodejspipeline
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: git_new
+        repoName: feature
+        build: <+input>
+  stages:
+    - stage:
+        name: CI-build
+        identifier: CIbuild
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          caching:
+            enabled: true
+            override: true
+          infrastructure:
+            type: KubernetesDirect
+            spec:
+              connectorRef: gkeconnector
+              namespace: Harness-2.0
+              automountServiceAccountToken: true
+              nodeSelector: {}
+              os: Linux
+          execution:
+            steps:
+              - step:
+                  type: BuildAndPushDockerRegistry
+                  name: BuildAndPushDockerRegistry_1
+                  identifier: BuildAndPushDockerRegistry_1
+                  spec:
+                    connectorRef: Dockerconnector
+                    repo: prajwaltelkar14/Harness-new-2.0
+                    tags:
+                      - Latest
+                    dockerfile: Dockerfile
+                    context: ./
+                    resources:
+                      limits:
+                        memory: 500Mi
+                        cpu: 400m
