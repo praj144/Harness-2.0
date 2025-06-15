@@ -8,7 +8,7 @@ pipeline:
     ci:
       codebase:
         connectorRef: git_new
-        repoName: feature
+        repoName: harness-nodejs
         build: <+input>
   stages:
     - stage:
