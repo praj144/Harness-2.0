@@ -28,7 +28,7 @@ pipeline:
             type: KubernetesDirect
             spec:
               connectorRef: gkeconnector
-              namespace: Harness-2.0
+              namespace: harness-delegate-ng
               automountServiceAccountToken: true
               nodeSelector: {}
               os: Linux
