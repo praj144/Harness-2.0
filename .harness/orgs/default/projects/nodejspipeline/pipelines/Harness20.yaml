@@ -34,35 +34,21 @@ pipeline:
               os: Linux
           execution:
             steps:
-              - parallel:
-                  - step:
-                      type: BuildAndPushDockerRegistry
-                      name: BuildAndPushDockerRegistry_1
-                      identifier: BuildAndPushDockerRegistry_1
-                      spec:
-                        connectorRef: Dockerconnector
-                        repo: docker.io/prajwaltelkar14/harness-new-2.0
-                        tags:
-                          - latest
-                        dockerfile: Dockerfile
-                        context: ./
-                        resources:
-                          limits:
-                            memory: 500Mi
-                            cpu: 400m
-                  - step:
-                      type: RunTests
-                      name: RunTests_1
-                      identifier: RunTests_1
-                      spec:
-                        connectorRef: Dockerconnector
-                        image: prajwaltelkar14/harness-new-2.0:latest
-                        language: Python
-                        buildTool: Unittest
-                        runOnlySelectedTests: true
-                        preCommand: npm install
-                        postCommand: npm test
-                        enableTestSplitting: false
+              - step:
+                  type: BuildAndPushDockerRegistry
+                  name: BuildAndPushDockerRegistry_1
+                  identifier: BuildAndPushDockerRegistry_1
+                  spec:
+                    connectorRef: Dockerconnector
+                    repo: docker.io/prajwaltelkar14/harness-new-2.0
+                    tags:
+                      - latest
+                    dockerfile: Dockerfile
+                    context: ./
+                    resources:
+                      limits:
+                        memory: 500Mi
+                        cpu: 400m
     - stage:
         name: Deploy_to_GKE
         identifier: Deploy_to_GKE
