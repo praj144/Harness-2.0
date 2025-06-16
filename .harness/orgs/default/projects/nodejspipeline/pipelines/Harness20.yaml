@@ -49,6 +49,20 @@ pipeline:
                       limits:
                         memory: 500Mi
                         cpu: 400m
+              - step:
+                  type: RunTests
+                  name: RunTests_1
+                  identifier: RunTests_1
+                  spec:
+                    connectorRef: Dockerconnector
+                    image: prajwaltelkar14/harness-new-2.0
+                    language: Python
+                    buildTool: Unittest
+                    runOnlySelectedTests: true
+                    preCommand: |
+                      npm install
+                      npm test
+                    enableTestSplitting: false
     - stage:
         name: Deploy_to_GKE
         identifier: Deploy_to_GKE
