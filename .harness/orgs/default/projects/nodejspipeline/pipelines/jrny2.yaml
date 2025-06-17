@@ -1,0 +1,48 @@
+pipeline:
+  name: jrny-2
+  identifier: jrny2
+  projectIdentifier: nodejspipeline
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: git_new
+        repoName: testing-avd
+        build: <+input>
+  stages:
+    - stage:
+        name: Stage_app_validate
+        identifier: Stage_app_validate
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          caching:
+            enabled: true
+            override: true
+          infrastructure:
+            type: KubernetesDirect
+            spec:
+              connectorRef: gkeconnector
+              namespace: harness-delegate-ng
+              automountServiceAccountToken: true
+              nodeSelector: {}
+              os: Linux
+          execution:
+            steps:
+              - step:
+                  type: Gitleaks
+                  name: Gitleaks_scan
+                  identifier: Gitleaks_scan
+                  spec:
+                    mode: orchestration
+                    config: default
+                    target:
+                      type: repository
+                      detection: auto
+                    advanced:
+                      log:
+                        level: info
+                      fail_on_severity: high
+                  description: scan codebase for secrets using gitleaks
